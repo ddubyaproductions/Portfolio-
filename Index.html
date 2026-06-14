@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Darrell Wayne Williams Jr. | Professional Dossier</title>
+    <style>
+        :root {
+            --bg-color: #0b1120;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-1: #0ea5e9; /* Cyan */
+            --accent-2: #8b5cf6; /* Violet */
+            --accent-3: #10b981; /* Emerald */
+            --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body { 
+            margin: 0; 
+            padding: 0; 
+            background-color: var(--bg-color); 
+            color: var(--text-main); 
+            font-family: var(--font-family); 
+            line-height: 1.6; 
+        }
+        a { color: var(--accent-1); text-decoration: none; transition: color 0.3s ease; }
+        a:hover { color: var(--accent-2); }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        
+        /* Header styling */
+        header { text-align: center; margin-bottom: 50px; animation: fadeInDown 1s ease-out; }
+        h1 { 
+            font-size: 2.8rem; 
+            margin-bottom: 10px; 
+            background: linear-gradient(90deg, var(--accent-1), var(--accent-2)); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+        }
+        .subtitle { font-size: 1.2rem; color: var(--text-muted); margin-bottom: 20px; letter-spacing: 0.5px; }
+        .header-tags { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: 15px; }
+        
+        /* Section styling */
+        .section { 
+            background-color: var(--card-bg); 
+            border-radius: 12px; 
+            padding: 35px; 
+            margin-bottom: 30px; 
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4); 
+            opacity: 0; 
+            transform: translateY(20px); 
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            border-top: 3px solid transparent;
+        }
+        .section:hover {
+            border-top: 3px solid var(--accent-2);
+        }
+        .section.visible { opacity: 1; transform: translateY(0); }
+        
+        h2 { 
+            font-size: 1.8rem; 
+            color: var(--text-main); 
+            font-weight: 600; 
+            border-bottom: 1px solid rgba(255,255,255,0.1); 
+            padding-bottom: 12px; 
+            margin-top: 0; 
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        h2::before {
+            content: "•";
+            color: var(--accent-1);
+            margin-right: 10px;
+            font-size: 2rem;
+            line-height: 1;
+        }
+        h3 { color: var(--accent-1); margin-bottom: 5px; font-size: 1.3rem; }
+        
+        .role-date { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 15px; font-style: italic; }
+        
+        /* Tags for tech stack */
+        .tag { 
+            display: inline-block; 
+            background-color: rgba(14, 165, 233, 0.1); 
+            color: var(--accent-1); 
+            padding: 5px 12px; 
+            border-radius: 20px; 
+            font-size: 0.85rem; 
+            margin: 4px; 
+            border: 1px solid rgba(14, 165, 233, 0.3); 
+        }
+        
+        /* Interactive Accordions */
+        .accordion-btn { 
+            background-color: rgba(255,255,255,0.03); 
+            color: var(--text-main); 
+            cursor: pointer; 
+            padding: 18px; 
+            width: 100%; 
+            border: 1px solid rgba(255,255,255,0.05); 
+            text-align: left; 
+            outline: none; 
+            font-size: 1.15rem; 
+            font-weight: 600; 
+            border-radius: 8px; 
+            transition: 0.3s; 
+            margin-top: 15px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+        }
+        .accordion-btn:hover { background-color: rgba(255,255,255,0.08); border-color: var(--accent-2); }
+        .accordion-btn::after { content: '+'; font-size: 1.5rem; color: var(--accent-1); transition: transform 0.3s; }
+        .accordion-btn.active::after { transform: rotate(45deg); color: var(--accent-2); }
+        .accordion-content { 
+            padding: 0 18px; 
+            max-height: 0; 
+            overflow: hidden; 
+            transition: max-height 0.4s ease-out; 
+            background-color: transparent; 
+        }
+        .accordion-content-inner { padding: 20px 0; }
+        
+        /* Media & Links */
+        .video-container { 
+            position: relative; 
+            padding-bottom: 56.25%; 
+            height: 0; 
+            overflow: hidden; 
+            border-radius: 10px; 
+            margin: 25px 0; 
+            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        
+        .link-card { 
+            background-color: rgba(139, 92, 246, 0.05); 
+            border-left: 4px solid var(--accent-2); 
+            padding: 20px; 
+            margin: 20px 0; 
+            border-radius: 0 8px 8px 0;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+        .link-card:hover { transform: translateX(5px); background-color: rgba(139, 92, 246, 0.1); }
+        .link-card h4 { margin: 0 0 8px 0; font-size: 1.1rem; }
+        .link-card a { font-weight: 600; }
+        .link-card p { margin: 0; font-size: 0.95rem; color: var(--text-muted); }
+
+        ul { padding-left: 20px; color: var(--text-muted); }
+        ul li { margin-bottom: 10px; }
+        strong { color: var(--text-main); }
+        
+        /* Floating Download Button */
+        .download-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+            color: white !important;
+            padding: 12px 28px;
+            border-radius: 30px;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(14, 165, 233, 0.4);
+            margin-top: 20px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.6);
+        }
+
+        @keyframes fadeInDown { 
+            from { opacity: 0; transform: translateY(-20px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Darrell Wayne Williams Jr.</h1>
+        <div class="subtitle">Commercial UAS Expert | Geospatial Specialist | Military Veteran</div>
+        <div class="header-tags">
+            <span class="tag">FAA Part 107 Certified</span>
+            <span class="tag">3,500+ Flight Hours</span>
+            <span class="tag">Remote Based (New Braunfels, TX)</span>
+            <span class="tag">Enterprise Drone Architecture</span>
+        </div>
+        <a href="#" class="download-btn" onclick="window.print(); return false;">Print / Save to PDF</a>
+    </header>
+
+    <!-- Intro Section -->
+    <div class="section">
+        <h2>Professional Profile</h2>
+        <p>Darrell Wayne Williams Jr. is a dedicated commercial unmanned aircraft systems (UAS) professional, geospatial specialist, and military veteran. Known for high-volume flight operations, extensive hardware troubleshooting proficiency, and a strong command of complex remote sensing ecosystems, Darrell operates at the forefront of modern industrial drone program architecture.</p>
+    </div>
+
+    <!-- Credentials Section -->
+    <div class="section">
+        <h2>Core Aviation Credentials</h2>
+        <ul>
+            <li><strong>FAA Part 107 Certification:</strong> Licensed remote pilot for commercial drone operations in the United States.</li>
+            <li><strong>Flight Log Volume:</strong> Over 3,500 documented flight hours across complex commercial, industrial, and restricted airspace environments.</li>
+            <li><strong>Methodology Expertise:</strong> Grounded in multi-modal data collection, managing unified workflows across airborne UAS, terrestrial backpack, and vehicle-mounted mobile collection systems.</li>
+        </ul>
+    </div>
+
+    <!-- Media Features Section -->
+    <div class="section">
+        <h2>Media Features & Industry Publications</h2>
+        <p>Darrell has built a public record of industry contributions, with his technical insights and philanthropic work featured by global manufacturers and top-tier drone media outlets.</p>
+        
+        <h3>DJI's Official Documentary Series: "On the Road"</h3>
+        <p>Darrell and his veteran advocacy organization were selected as the primary focus for the finale episode of DJI's flagship global video documentary series. The piece, titled <em>"Freedom Full Send: How DJI Drones Help Veterans Find Peace and Community,"</em> profiles his work utilizing the technical structure, focus, and discipline of unmanned aviation to support veteran mental health.</p>
+        
+        <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/9ECGBKMoBEQ" title="Freedom Full Send DJI Documentary" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+
+        <button class="accordion-btn">DroneXL Technical Contributions</button>
+        <div class="accordion-content">
+            <div class="accordion-content-inner">
+                <p>His field evaluations and hardware troubleshooting experiences have been featured in industry publications such as DroneXL:</p>
+                
+                <div class="link-card">
+                    <h4><a href="https://dronexl.co/2024/06/16/anzu-robotics-raptor-t-first-impressions/" target="_blank">The Anzu Robotics Raptor T Field Test (June 2024)</a></h4>
+                    <p>Serving as an enterprise geospatial professional, Darrell conducted rigorous operational testing on this new platform. DroneXL detailed his field execution, documenting how he identified an early battery firmware bug and engineered an immediate workaround by cross-swapping a DJI Mavic 3 Enterprise battery to maintain operational uptime.</p>
+                </div>
+
+                <div class="link-card">
+                    <h4><a href="https://dronexl.co/2025/12/23/fcc-banned-foreign-drone-batteries-china/" target="_blank">Supply Chain and Component Analysis (December 2025)</a></h4>
+                    <p>DroneXL featured photographic documentation and technical assets provided directly by Darrell, highlighting American-built Skydio battery architectures to anchor an editorial analysis on global drone manufacturing and federal component restrictions.</p>
+                </div>
+            </div>
+        </div>
+
+        <button class="accordion-btn">Enterprise Platform Capabilities</button>
+        <div class="accordion-content">
+            <div class="accordion-content-inner">
+                <p>Darrell specializes in operating heavy-lift and high-precision enterprise platforms for complex industrial applications.</p>
+                <div class="link-card" style="border-left-color: var(--accent-3); background-color: rgba(16, 185, 129, 0.05);">
+                    <h4><a href="https://www.youtube.com/watch?v=Fj-B9M2gSfs" target="_blank">Harris Aerial H6E Reference Operation</a></h4>
+                    <p>Demonstrating the heavy-lift capabilities of the Harris Aerial H6E platform, utilized for stabilizing high-mass sensor packages like the Phoenix LiDAR during complex data acquisition.</p>
+                </div>
+                <div class="link-card" style="border-left-color: var(--accent-3); background-color: rgba(16, 185, 129, 0.05);">
+                    <h4><a href="https://www.youtube.com/watch?v=R90E521zZDE" target="_blank">Freefly Astro Industrial Platform</a></h4>
+                    <p>Operational overview of the Freefly Astro Max platform, a key asset in high-end commercial mapping and precise payload integration.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Career Architecture Section -->
+    <div class="section">
+        <h2>Chronological Career Architecture</h2>
+        
+        <h3>Senior Sales Consultant | DSLRPros</h3>
+        <div class="role-date">Current Position (Remote Work Environment)</div>
+        <p>At DSLRPros, a leading enterprise distributor of industrial aerial robotics and thermal imaging solutions, Darrell serves as a strategic program consultant. He leverages thousands of hours of real-world operational insights to architect custom drone programs for corporate enterprise clients, public safety agencies, and government entities. His focus centers on translating demanding field requirements into scalable hardware procurement and localized software processing pipelines.</p>
+
+        <h3 style="margin-top: 30px;">Advanced Technical Roles | Firmatek LLC</h3>
+        <div class="role-date">Tenure concluded April 2026</div>
+        <ul>
+            <li><strong>Field Equipment Specialist:</strong> Conducted dedicated R&D to determine complex hardware and sensor integration configurations. Served as the company-wide Subject Matter Expert (SME) for methane emissions detection collection processes and field execution best practices. Authored comprehensive Standard Operating Procedures (SOPs) and technical training guides.</li>
+            <li><strong>Geospatial Field Team Lead:</strong> Directed high-accuracy field data collection campaigns, managing asset integrity mapping, structural modeling, and heavy industrial site analytics.</li>
+            <li><strong>Geospatial Field Technician:</strong> Executed precision field mapping operations, deploying advanced sensors to gather raw environmental and volumetric data across complex industrial sites.</li>
+        </ul>
+    </div>
+
+    <!-- Technical Mastery Section -->
+    <div class="section">
+        <h2>Advanced Sensor & Payload Mastery</h2>
+        
+        <button class="accordion-btn">Multi-Modal LiDAR Systems</button>
+        <div class="accordion-content">
+            <div class="accordion-content-inner">
+                <ul>
+                    <li><strong>Phoenix LiDAR Ranger Flex:</strong> Mastered across three distinct collection modalities, including drone-based aerial capture, vehicle-mounted mobile collection rigs, and tactical ground-based backpack configurations.</li>
+                    <li><strong>Phoenix LiDAR Recon XT:</strong> Deployed for high-accuracy laser scanning and precise 3D terrain modeling.</li>
+                    <li><strong>Harris Aerial H6E:</strong> Expert pilot of this robust heavy-lift hexacopter platform, utilized specifically to lift and stabilize high-mass sensor packages during complex industrial data acquisition.</li>
+                </ul>
+            </div>
+        </div>
+
+        <button class="accordion-btn">Methane Emissions Detection</button>
+        <div class="accordion-content">
+            <div class="accordion-content-inner">
+                <p>For environmental compliance, asset integrity, and leak localization in the energy and utility sectors, Darrell configures and deploys cutting-edge laser-absorption sniffing payloads:</p>
+                <ul>
+                    <li><strong>Purway CH4 TDLAS:</strong> Operated via Tunable Diode Laser Absorption Spectroscopy to track parts-per-million gas concentration levels.</li>
+                    <li><strong>Pergam Laser Falcon:</strong> Deployed for high-precision, localized aerial methane gas detection.</li>
+                </ul>
+            </div>
+        </div>
+
+        <button class="accordion-btn">Aircraft Fleet & Software Suite</button>
+        <div class="accordion-content">
+            <div class="accordion-content-inner">
+                <p><strong>Fleet Platforms:</strong> Technical familiarity with DJI Enterprise series, Skydio autonomous systems, ACSL platforms, and the Freefly Astro Max industrial drone platform.</p>
+                <p><strong>Geospatial Software:</strong></p>
+                <ul>
+                    <li><strong>Maptek:</strong> Gold-standard engine for high-density point cloud processing and sub-centimeter volumetric tracking.</li>
+                    <li><strong>Global Mapper:</strong> Advanced vector editing, spatial analysis, and terrain grid generation.</li>
+                    <li><strong>QGIS:</strong> Open-source geographic information system analysis.</li>
+                    <li><strong>Photogrammetry Engines:</strong> Expert application within Pix4Dmatic and DJI Terra for high-volume 2D orthomosaic generation and 3D site reconstruction.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Philanthropy Section -->
+    <div class="section">
+        <h2>Community & Philanthropic Impact</h2>
+        <h3>Freedom Full Send</h3>
+        <p>Following his foundational service in the United States Army, Darrell focused his leadership skills on the veteran community by founding and directing <strong>Freedom Full Send</strong>. The organization hosts dedicated drone fly days for military veterans, leveraging recreational and technical drone flight to foster community connection, provide therapeutic focus, and open clear career pathways into the commercial unmanned aviation industry.</p>
+        
+        <div class="link-card" style="border-left-color: var(--accent-1); background-color: rgba(14, 165, 233, 0.05);">
+            <h4><a href="https://www.linkedin.com/company/freedom-full-send" target="_blank">Connect with Freedom Full Send on LinkedIn</a></h4>
+            <p>Join the community and support the mission of bringing veterans together through drone aviation.</p>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // Intersection Observer for scroll animations
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px"
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.section').forEach((section) => {
+        observer.observe(section);
+    });
+
+    // Accordion Logic
+    const accordions = document.querySelectorAll('.accordion-btn');
+    accordions.forEach(acc => {
+        acc.addEventListener('click', function() {
+            this.classList.toggle('active');
+            const panel = this.nextElementSibling;
+            if (panel.style.maxHeight) {
+                panel.style.maxHeight = null;
+            } else {
+                panel.style.maxHeight = panel.scrollHeight + "px";
+            }
+        });
+    });
+</script>
+</body>
+</html>
